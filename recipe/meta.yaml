@@ -6,24 +6,24 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/napari-compressed-labels-io-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/napari-compressed-labels-io-{{ version }}.tar.gz
   sha256: be1d70b163a1928090d345190709ca9a2e4a3cdb33fa5d48625988ee411e61bb
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
     - setuptools-scm
   run:
     - dask-core
     - napari-plugin-engine >=0.1.4
     - numpy
-    - python >=3.6
+    - python >={{ python_min }}
     - zarr
 
 test:
@@ -34,6 +34,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/DragaDoncila/napari-compressed-labels-io
